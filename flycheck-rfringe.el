@@ -1,11 +1,13 @@
 ;;; flycheck-rfringe.el --- RFringe for Flycheck     -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2015  Sebastian Wiesner <swiesner@lunaryorn.com>
+;; Copyright (C) 2017  Johnathon Weare <jrweare@gmail.com>
 
 ;; Author: Sebastian Wiesner <swiesner@lunaryorn.com>
+;;         Johnathon Weare <jrweare@gmail.com>
 ;; Keywords: convenience, frames, tools
-;; Version: 0.1
-;; Package-Requires: ((emacs "24") (flycheck "0.23") (rfringe "0"))
+;; Version: 0.2
+;; Package-Requires: ((emacs "24") (flycheck "0.23") (rfringe "0.0"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -29,7 +31,9 @@
 ;;
 ;; To enable, add the following to your init file:
 ;;
-;;     (add-hook 'flycheck-mode-hook #'flycheck-rfringe-mode)
+;;     (add-hook 'flycheck-before-syntax-check-hook #'flycheck-rfringe-mode) ; works, but not ideal
+;; Original mode had this, but it fails
+;;     (add-hook 'flycheck-mode-hook #'flycheck-rfringe-mode) ; doesn't work, but is correct way
 
 ;;; Code:
 
