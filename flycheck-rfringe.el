@@ -38,16 +38,16 @@
 (require 'flycheck)
 (require 'rfringe)
 
-(defun flycheck-rfringe-remove-indicators ()
-  "Remove rfringe indicators for Flycheck."
-  (rfringe-remove-managed-indicators))
-
 (defun flycheck-rfringe-add-indicators ()
   "Add rfringe indicators for current Flycheck errors."
   (flycheck-rfringe-remove-indicators)
   (dolist (err flycheck-current-errors)
     (let ((pos (flycheck-error-pos err)))
       (rfringe-create-relative-indicator pos))))
+
+(defun flycheck-rfringe-remove-indicators ()
+  "Remove rfringe indicators for Flycheck."
+  (rfringe-remove-managed-indicators))
 
 (define-minor-mode flycheck-rfringe-mode
   "Minor mode to show relative fringe indicators for Flycheck.
