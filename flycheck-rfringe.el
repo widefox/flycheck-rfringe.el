@@ -31,8 +31,6 @@
 ;;
 ;; To enable, add the following to your init file:
 ;;
-;;     (add-hook 'flycheck-before-syntax-check-hook #'flycheck-rfringe-mode) ; works, but not ideal
-;; Original mode had this, but it fails
 ;;     (add-hook 'flycheck-mode-hook #'flycheck-rfringe-mode) ; doesn't work, but is correct way
 
 ;;; Code:
@@ -40,16 +38,16 @@
 (require 'flycheck)
 (require 'rfringe)
 
+(defun flycheck-rfringe-remove-indicators ()
+  "Remove rfringe indicators for Flycheck."
+  (rfringe-remove-managed-indicators))
+
 (defun flycheck-rfringe-add-indicators ()
   "Add rfringe indicators for current Flycheck errors."
   (flycheck-rfringe-remove-indicators)
   (dolist (err flycheck-current-errors)
     (let ((pos (flycheck-error-pos err)))
       (rfringe-create-relative-indicator pos))))
-
-(defun flycheck-rfringe-remove-indicators ()
-  "Remove rfringe indicators for Flycheck."
-  (rfringe-remove-managed-indicators))
 
 (define-minor-mode flycheck-rfringe-mode
   "Minor mode to show relative fringe indicators for Flycheck.
@@ -70,7 +68,7 @@ Flycheck errors."
   (cond
    (flycheck-rfringe-mode
     (add-hook 'flycheck-after-syntax-check-hook
-              #'flycheck-rfinge-add-indicators
+              #'flycheck-rfringe-add-indicators
               nil 'local)
     (flycheck-rfringe-add-indicators))
    (t
